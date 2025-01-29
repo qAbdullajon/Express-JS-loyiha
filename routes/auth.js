@@ -2,11 +2,27 @@ import { Router } from "express";
 const router = Router();
 
 router.get("/login", (req, res) => {
-  res.render("login");
+  res.render("login", {
+    title: "Login | Sammi",
+    isLogin: true,
+  });
 });
 
 router.get("/register", (req, res) => {
-  res.render("register");
+  res.render("register", {
+    title: "Register",
+    isRegister: true,
+  });
+});
+
+router.post("/login", (req, res) => {
+  console.log(req.body);
+  res.redirect("/");
+});
+
+router.post("/register", (req, res) => {
+  console.log(req.body);
+  res.redirect("/login");
 });
 
 export default router;
