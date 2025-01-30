@@ -2,6 +2,9 @@ import express from "express";
 import mongoose from "mongoose";
 import dotenv from "dotenv";
 import { create } from "express-handlebars";
+import session from "express-session";
+import cookieParser from "cookie-parser";
+import flash from "connect-flash";
 
 // Routes
 import AuthRouter from "./routes/auth.js";
@@ -22,6 +25,17 @@ app.set("views", "./views");
 app.use(express.static("public"));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
+app.use(cookieParser("keyboard cat"));
+app.use(
+  session({
+    secret: "keycat",
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: false },
+  })
+);
+
+app.use(flash());
 
 app.use(AuthRouter);
 app.use(ProductRouter);
