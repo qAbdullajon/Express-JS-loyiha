@@ -1,8 +1,13 @@
 import express from "express";
-import AuthRouter from "./routes/auth.js";
-import ProductRouter from "./routes/products.js";
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 import { create } from "express-handlebars";
 
+// Routes
+import AuthRouter from "./routes/auth.js";
+import ProductRouter from "./routes/products.js";
+
+dotenv.config();
 const app = express();
 
 const hbs = create({
@@ -22,4 +27,15 @@ app.use(AuthRouter);
 app.use(ProductRouter);
 
 const PORT = process.env.PORT || 4100;
-app.listen(PORT, () => console.log("Server is runing on port:", PORT));
+
+const startApp = async () => {
+  try {
+    await mongoose.connect(process.env.MONGODB_URL).then(() => {
+      console.log("Connected to MongoDB");
+    });
+    app.listen(PORT, () => console.log("Server is runing on port:", PORT));
+  } catch (error) {
+    console.log(error);
+  }
+};
+startApp();
