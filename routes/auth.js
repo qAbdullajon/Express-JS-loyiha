@@ -1,6 +1,7 @@
 import { Router } from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import generateAccessToken from "../service/token.js";
 const router = Router();
 
 router.get("/login", (req, res) => {
@@ -40,7 +41,9 @@ router.post("/login", async (req, res) => {
     res.redirect("/login");
     return;
   }
-  console.log(existUser);
+  const token = generateAccessToken(existUser._id)
+  res.cookie('token', token, { httpOnly: true, secure: true })
+
   res.redirect("/");
 });
 
@@ -68,8 +71,11 @@ router.post("/register", async (req, res) => {
     email: req.body.email,
     password: hashedPassword,
   };
-  await User.create(userData);
-  res.redirect("/login");
+  const user = await User.create(userData);
+  const token = generateAccessToken(user._id)
+  res.cookie('token', token, { httpOnly: true, secure: true })
+
+  res.redirect("/");
 });
 
 export default router;
