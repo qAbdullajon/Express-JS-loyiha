@@ -10,6 +10,8 @@ import cookieParser from "cookie-parser";
 // Routes
 import AuthRouter from "./routes/auth.js";
 import ProductRouter from "./routes/products.js";
+import userMiddleware from "./middleware/user.js";
+import utils from "./utils/index.js";
 
 dotenv.config();
 const app = express();
@@ -17,6 +19,7 @@ const app = express();
 const hbs = create({
   defaultLayout: "main",
   extname: "hbs",
+  helpers: utils
 });
 
 app.engine("hbs", hbs.engine);
@@ -36,6 +39,7 @@ app.use(
 );
 app.use(flash());
 app.use(varMiddleware)
+app.use(userMiddleware)
 
 app.use(AuthRouter);
 app.use(ProductRouter);

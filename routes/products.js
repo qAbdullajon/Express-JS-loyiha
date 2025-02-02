@@ -1,15 +1,14 @@
 import { Router } from "express";
 import Products from "../models/Products.js";
 import productMiddelware from "../middleware/product.js";
-import userMiddleware from "../middleware/user.js";
 const router = Router();
 
-router.get("/", async (rea, res) => {
+router.get("/", async (req, res) => {
   const products = await Products.find().lean()
-
   res.render("index", {
     title: "Boom shop | Sammi",
-    products
+    products,
+    userId: req.userId
   });
 });
 
@@ -28,7 +27,7 @@ router.get("/add", productMiddelware, (req, res) => {
   });
 });
 
-router.post("/add-product", userMiddleware, async (req, res) => {
+router.post("/add-product", async (req, res) => {
   const { title, description, image, price } = req.body
   if (!title || !description || !image || !price) {
     req.flash("addError", 'All input in required')
