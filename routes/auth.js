@@ -2,14 +2,11 @@ import { Router } from "express";
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import generateAccessToken from "../service/token.js";
+import authMiddleware from "../middleware/auth.js"
+
 const router = Router();
 
-router.get("/login", (req, res) => {
-  if (req.cookies.token) {
-    res.redirect("/")
-    return
-  }
-
+router.get("/login", authMiddleware, (req, res) => {
   res.render("login", {
     title: "Login | Sammi",
     isLogin: true,
@@ -17,11 +14,7 @@ router.get("/login", (req, res) => {
   });
 });
 
-router.get("/register", (req, res) => {
-  if (req.cookies.token) {
-    res.redirect("/")
-    return
-  }
+router.get("/register", authMiddleware, (req, res) => {
   res.render("register", {
     title: "Register",
     isRegister: true,
