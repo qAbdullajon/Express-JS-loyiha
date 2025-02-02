@@ -1,0 +1,14 @@
+<div class="img-box">
+  <img width="100%" src="{{product.image}}" alt="qw">
+</div>
+<div>
+  <p class="fs-1">{{product.title}}</p>
+  <div class="d-flex gap-5">
+    <div class="d-flex gap-3 fs-5 opacity-10 text-black-50">
+      <span>Creted at:</span>
+      <span class="fw-bold pb-2">{{formatData product.createdAt}}</span>
+    </div>
+    <p class="fs-5">{{product.price}}.00 $</p>
+  </div>
+  <p class="fs-5">{{product.description}}</p>
+</div>

@@ -8,3 +8,13 @@
   letter-spacing: 2px;
   border-radius: 50%;
 }
+.img-box {
+  display: flex;
+  gap: 15px;
+}
+.img-box img {
+  height: 70vh;
+  object-fit: cover;
+  object-position: top;
+
+}

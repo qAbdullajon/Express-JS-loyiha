@@ -14,7 +14,6 @@ router.get("/", async (req, res) => {
 
 router.get("/products", async (req, res) => {
   const myProducts = await Products.find({ user: req.userId }).populate('user').lean()
-
   res.render("products", {
     title: "Products | sammi",
     isProducts: true,
@@ -29,6 +28,15 @@ router.get("/add", productMiddelware, (req, res) => {
     addError: req.flash("addError")
   });
 });
+
+router.get("/product/:id", async (req, res) => {
+  const { id } = req.params
+  const product = await Products.findById(id).populate('user').lean()
+  res.render('product', {
+    title: 'Product detail',
+    product
+  })
+})
 
 router.post("/add-product", async (req, res) => {
   const { title, description, image, price } = req.body

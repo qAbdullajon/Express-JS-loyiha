@@ -13,7 +13,7 @@
       </div>
       <div class="card-footer">
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
-          <button type="button" class="btn btn-outline-primary">Detail</button>
+          <a href="/product/{{_id}}" type="button" class="btn btn-outline-primary">Detail</a>
 
           {{#if @root.token}}
           {{#ifequal user @root.userId}}
