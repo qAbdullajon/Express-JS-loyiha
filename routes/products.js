@@ -12,10 +12,13 @@ router.get("/", async (req, res) => {
   });
 });
 
-router.get("/products", (req, res) => {
+router.get("/products", async (req, res) => {
+  const myProducts = await Products.find({ user: req.userId }).populate('user').lean()
+
   res.render("products", {
     title: "Products | sammi",
     isProducts: true,
+    myProducts
   });
 });
 
