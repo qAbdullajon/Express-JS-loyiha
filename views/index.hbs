@@ -17,7 +17,9 @@
           {{#if @root.token}}
           {{#ifequal user @root.userId}}
           <a href="/edit-product/{{_id}}" type="button" class="btn btn-outline-secondary">Edit</a>
-          <button type="button" class="btn btn-outline-danger">Delete</button>
+          <form action="/delete-product/{{_id}}" method="post" class="btn btn-outline-danger m-0 p-0">
+            <button class="delete-btn" type="submit">Delete</button>
+          </form>
           {{/ifequal}}
           {{/if}}
         </div>
