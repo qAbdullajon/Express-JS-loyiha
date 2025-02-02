@@ -33,8 +33,18 @@ router.get("/product/:id", async (req, res) => {
   const { id } = req.params
   const product = await Products.findById(id).populate('user').lean()
   res.render('product', {
-    title: 'Product detail',
+    title: 'Product detail | Sammi',
     product
+  })
+})
+
+router.get("/edit-product/:id", async (req, res) => {
+  const { id } = req.params
+  const product = await Products.findById(id).populate('user').lean()
+  res.render('edit-product', {
+    title: 'Edit product | Sammi',
+    product,
+    editProductError: req.flash('editProductError')
   })
 })
 
@@ -46,8 +56,22 @@ router.post("/add-product", async (req, res) => {
     return
   }
   await Products.create({ ...req.body, user: req.userId })
-
   res.redirect("/")
+})
+
+router.post("/edit-product/:id", async (req, res) => {
+  const { id } = req.params
+  const { title, description, image, price } = req.body
+
+  if (!title || !description || !image || !price) {
+    req.flash("editProductError", 'All input in required')
+    res.redirect(`/edit-product/${id}`)
+    return
+  }
+
+  const updateData = await Products.findByIdAndUpdate(id, req.body, { new: true })
+  res.redirect("/")
+  return
 })
 
 export default router;

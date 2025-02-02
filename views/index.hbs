@@ -14,14 +14,12 @@
       <div class="card-footer">
         <div class="btn-group" role="group" aria-label="Basic mixed styles example">
           <a href="/product/{{_id}}" type="button" class="btn btn-outline-primary">Detail</a>
-
           {{#if @root.token}}
           {{#ifequal user @root.userId}}
-          <button type="button" class="btn btn-outline-secondary">Edit</button>
+          <a href="/edit-product/{{_id}}" type="button" class="btn btn-outline-secondary">Edit</a>
           <button type="button" class="btn btn-outline-danger">Delete</button>
           {{/ifequal}}
           {{/if}}
-
         </div>
       </div>
     </div>
