@@ -10,7 +10,10 @@
         <p style="display: -webkit-box;  -webkit-line-clamp: 6;  -webkit-box-orient: vertical;  overflow: hidden;"
           class="card-text">{{description}}</p>
         <div class="d-flex justify-content-between align-items-center">
-          <div class="avatar bg-primary text-white">{{getFullName user.firstName user.lastName}}</div>
+          <div class="d-flex align-items-center gap-1">
+            <p class="m-0 m-0 avatar bg-primary text-white">{{getFullName user.firstName user.lastName}}</p>
+            <p class="m-0 m-0 fs-5">{{user.firstName}} {{user.lastName}}</p>
+          </div>
           <small class="text-body-secondary fs-5">{{price}}.00 $</small>
         </div>
       </div>
